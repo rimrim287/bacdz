@@ -1,0 +1,1656 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>منصة تفوقك في البكالوريا | DzBac Dashboard</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --bg-main: #faf8ff;
+            --purple-primary: #9d85e1;
+            --purple-light: #bca8f2;
+            --purple-dark: #6c52b3;
+            --soft-cream: #fffdf9;
+            --text-main: #3c345c;
+            --text-muted: #8c82b0;
+            
+            /* Subject Color Palette */
+            --color-science: #a3e635;
+            --color-physics: #38bdf8;
+            --color-math: #fb923c;
+            --color-engineering: #f43f5e;
+            --color-arabic: #2dd4bf;
+            --color-french: #a78bfa;
+            --color-english: #f472b6;
+            --color-islamic: #34d399;
+            --color-history: #fbbf24;
+            --color-philosophy: #ec4899; /* لون مميز للفلسفة */
+
+            /* Claymorphism Shadows */
+            --clay-shadow: 9px 9px 16px rgba(163, 139, 244, 0.12), 
+                           -9px -9px 16px rgba(255, 255, 255, 0.8),
+                           inset 3px 3px 6px rgba(255, 255, 255, 0.6),
+                           inset -3px -3px 6px rgba(163, 139, 244, 0.08);
+            --clay-shadow-inset: inset 4px 4px 8px rgba(163, 139, 244, 0.15),
+                                 inset -4px -4px 8px rgba(255, 255, 255, 0.9);
+            --clay-btn-shadow: 4px 4px 8px rgba(108, 82, 179, 0.3),
+                               inset 2px 2px 4px rgba(255, 255, 255, 0.4);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Cairo', sans-serif;
+            user-select: none;
+        }
+
+        body {
+            background-color: var(--bg-main);
+            color: var(--text-main);
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+
+        /* Elements Hidden Utility */
+        .hidden { display: none !important; }
+
+        /* --- Custom Scrollbar --- */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: var(--bg-main); }
+        ::-webkit-scrollbar-thumb { background: var(--purple-light); border-radius: 10px; }
+
+        /* ==========================================================================
+           1. AUTH / REGISTRATION SCREEN STYLES
+           ========================================================================== */
+        .auth-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            padding: 20px;
+            position: relative;
+        }
+
+        .decorative-cloud {
+            position: absolute;
+            background: #fff;
+            border-radius: 50px;
+            box-shadow: var(--clay-shadow);
+            opacity: 0.7;
+            animation: float 6s ease-in-out infinite alternate;
+        }
+        .cloud-1 { width: 120px; height: 40px; top: 15%; left: 10%; }
+        .cloud-2 { width: 160px; height: 50px; bottom: 20%; right: 8%; animation-delay: 1.5s; }
+
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            100% { transform: translateY(-15px); }
+        }
+
+        .auth-card {
+            background: var(--soft-cream);
+            border-radius: 32px;
+            padding: 40px 30px;
+            width: 100%;
+            max-width: 520px;
+            box-shadow: var(--clay-shadow);
+            text-align: center;
+            position: relative;
+            border: 4px solid #fff;
+        }
+
+        .auth-avatar-section {
+            position: relative;
+            width: 120px;
+            height: 120px;
+            margin: 0 auto 20px;
+        }
+
+        .auth-avatar-preview {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            background: var(--purple-light);
+            box-shadow: var(--clay-shadow);
+            border: 4px solid #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .auth-avatar-preview img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .avatar-picker-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+            margin: 15px 0;
+        }
+
+        .avatar-option {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            cursor: pointer;
+            border: 2px solid transparent;
+            transition: all 0.3s ease;
+        }
+
+        .avatar-option.selected {
+            border-color: var(--purple-primary);
+            transform: scale(1.1);
+        }
+
+        .form-group {
+            margin-bottom: 18px;
+            text-align: right;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 6px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            color: var(--purple-dark);
+            padding-right: 5px;
+        }
+
+        .form-input, .form-select {
+            width: 100%;
+            padding: 12px 16px;
+            border-radius: 16px;
+            border: none;
+            background: #fff;
+            box-shadow: var(--clay-shadow-inset);
+            font-size: 0.95rem;
+            color: var(--text-main);
+            outline: none;
+            transition: all 0.3s ease;
+        }
+
+        .form-input:focus, .form-select:focus {
+            box-shadow: 0 0 0 3px var(--purple-light);
+        }
+
+        .clay-btn {
+            background: var(--purple-primary);
+            color: white;
+            border: none;
+            padding: 14px 32px;
+            border-radius: 20px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            cursor: pointer;
+            box-shadow: var(--clay-btn-shadow);
+            transition: all 0.3s ease;
+            width: 100%;
+            margin-top: 15px;
+        }
+
+        .clay-btn:hover {
+            background: var(--purple-dark);
+            transform: translateY(-2px);
+        }
+
+        /* ==========================================================================
+           2. MAIN APP PLATFORM LAYOUT
+           ========================================================================== */
+        .app-layout {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* --- Sidebar Navigation --- */
+        .sidebar {
+            width: 280px;
+            background: var(--purple-primary);
+            padding: 30px 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+            position: fixed;
+            height: 100vh;
+            right: 0;
+            top: 0;
+            z-index: 100;
+            box-shadow: -5px 0 25px rgba(157, 133, 225, 0.2);
+        }
+
+        .sidebar-profile {
+            background: rgba(255, 255, 255, 0.15);
+            padding: 15px;
+            border-radius: 24px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            color: white;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+        }
+
+        .sidebar-avatar {
+            width: 55px;
+            height: 55px;
+            border-radius: 50%;
+            border: 2px solid white;
+            overflow: hidden;
+            background: #fff;
+        }
+
+        .sidebar-avatar img { width: 100%; height: 100%; object-fit: cover; }
+
+        .sidebar-menu {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            list-style: none;
+        }
+
+        .menu-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 12px 20px;
+            color: rgba(255, 255, 255, 0.85);
+            font-weight: 600;
+            text-decoration: none;
+            border-radius: 18px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .menu-item i { font-size: 1.2rem; width: 25px; text-align: center; }
+
+        .menu-item:hover, .menu-item.active {
+            background: var(--soft-cream);
+            color: var(--purple-dark);
+            transform: translateX(-5px);
+            box-shadow: var(--clay-shadow);
+        }
+
+        /* --- Main Frame Area --- */
+        .main-frame {
+            margin-right: 280px;
+            width: calc(100% - 280px);
+            padding: 30px;
+            min-height: 100vh;
+        }
+
+        /* --- Unified Header & Global Countdown --- */
+        .app-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            background: var(--soft-cream);
+            padding: 20px 30px;
+            border-radius: 24px;
+            box-shadow: var(--clay-shadow);
+            border: 2px solid #fff;
+        }
+
+        .welcome-badge h1 { font-size: 1.6rem; color: var(--text-main); }
+        .welcome-badge p { color: var(--text-muted); font-size: 0.9rem; margin-top: 2px; }
+
+        .countdown-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            background: #fff;
+            padding: 10px 20px;
+            border-radius: 20px;
+            box-shadow: var(--clay-shadow-inset);
+        }
+
+        .countdown-title {
+            font-weight: 700;
+            color: var(--purple-dark);
+            font-size: 0.95rem;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        .countdown-digits {
+            display: flex;
+            gap: 8px;
+        }
+
+        .time-box {
+            background: var(--purple-primary);
+            color: white;
+            padding: 6px 10px;
+            border-radius: 10px;
+            min-width: 45px;
+            text-align: center;
+            box-shadow: var(--clay-btn-shadow);
+        }
+
+        .time-box span { display: block; font-weight: 900; font-size: 1.1rem; }
+        .time-box label { font-size: 0.65rem; display: block; opacity: 0.8; }
+
+        /* ==========================================================================
+           3. SUB-VIEWS ARCHITECTURE (CARDS, MODULES, WIDGETS)
+           ========================================================================== */
+        .view-panel {
+            animation: fadeIn 0.4s ease-out forwards;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* --- Overview / Cards Layout --- */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .stat-clay-card {
+            background: var(--soft-cream);
+            border-radius: 24px;
+            padding: 20px;
+            box-shadow: var(--clay-shadow);
+            border: 2px solid #fff;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            position: relative;
+        }
+
+        .stat-icon-box {
+            width: 60px;
+            height: 60px;
+            border-radius: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: white;
+            box-shadow: var(--clay-btn-shadow);
+        }
+
+        .dashboard-row-split {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 25px;
+        }
+
+        .content-block-clay {
+            background: var(--soft-cream);
+            border-radius: 28px;
+            padding: 25px;
+            box-shadow: var(--clay-shadow);
+            border: 3px solid #fff;
+            margin-bottom: 25px;
+        }
+
+        .block-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .block-header h2 { font-size: 1.25rem; color: var(--text-main); font-weight: 700; }
+
+        /* --- Circular Progress Ring --- */
+        .progress-circle-container {
+            position: relative;
+            width: 140px;
+            height: 140px;
+            margin: 0 auto 15px;
+        }
+
+        .progress-svg { transform: rotate(-90deg); width: 100%; height: 100%; }
+        .progress-svg circle {
+            fill: none;
+            stroke-width: 12;
+            stroke-linecap: round;
+        }
+        .progress-svg .bg-ring { stroke: rgba(157, 133, 225, 0.15); }
+        .progress-svg .fill-ring {
+            stroke: var(--purple-primary);
+            transition: stroke-dashoffset 0.5s ease;
+        }
+
+        .progress-text-center {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--text-main);
+        }
+
+        /* --- Subjects View Grid --- */
+        .subjects-deck {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 20px;
+        }
+
+        .subject-clay-card {
+            background: #fff;
+            border-radius: 24px;
+            padding: 22px;
+            box-shadow: var(--clay-shadow);
+            border: 2px solid #fff;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .subject-clay-card:hover { transform: translateY(-5px); }
+        .subject-clay-card.main-priority { border: 3px solid var(--purple-light); }
+
+        .subject-card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .subj-badge {
+            width: 45px;
+            height: 45px;
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.2rem;
+        }
+
+        .linear-progress-bar {
+            background: rgba(0,0,0,0.05);
+            height: 10px;
+            border-radius: 10px;
+            width: 100%;
+            margin-top: 15px;
+            overflow: hidden;
+            box-shadow: var(--clay-shadow-inset);
+        }
+
+        .linear-progress-fill {
+            height: 100%;
+            border-radius: 10px;
+            width: 0%;
+            transition: width 0.4s ease;
+        }
+
+        /* --- Internal Subject View Workspace --- */
+        .workspace-navbar {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+
+        .back-nav-btn {
+            background: #fff;
+            border: none;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            box-shadow: var(--clay-shadow);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--purple-dark);
+            font-size: 1.1rem;
+        }
+
+        .task-list-wrapper {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-top: 15px;
+        }
+
+        .task-item-row {
+            background: white;
+            padding: 15px 20px;
+            border-radius: 16px;
+            box-shadow: var(--clay-shadow);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-right: 6px solid var(--purple-primary);
+        }
+
+        .task-item-row.completed {
+            opacity: 0.7;
+            border-right-color: #cbd5e1;
+        }
+        .task-item-row.completed .task-title-text { text-decoration: line-through; color: var(--text-muted); }
+
+        .interactive-checkbox {
+            width: 24px;
+            height: 24px;
+            border-radius: 8px;
+            box-shadow: var(--clay-shadow-inset);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 2px solid transparent;
+        }
+        .interactive-checkbox.checked {
+            background: var(--purple-primary);
+            color: white;
+        }
+
+        /* --- Notes View Panel --- */
+        .notes-actions {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+        .notes-grid-layout {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+            gap: 20px;
+        }
+        .note-sticky-pad {
+            padding: 20px;
+            border-radius: 20px;
+            box-shadow: var(--clay-shadow);
+            border: 2px solid #fff;
+            position: relative;
+            min-height: 180px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        .note-sticky-pad p { font-size: 0.95rem; line-height: 1.6; font-weight: 600; }
+        .note-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 15px;
+            font-size: 0.8rem;
+            color: rgba(0,0,0,0.4);
+        }
+
+        /* --- Teachers Module Layout --- */
+        .teachers-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 25px;
+        }
+        .teacher-profile-card {
+            background: white;
+            border-radius: 24px;
+            padding: 20px;
+            box-shadow: var(--clay-shadow);
+            border: 2px solid #fff;
+            text-align: center;
+            position: relative;
+        }
+        .teacher-avatar-frame {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            margin: 0 auto 15px;
+            box-shadow: var(--clay-shadow);
+            border: 3px solid var(--purple-light);
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--bg-main);
+        }
+        .teacher-avatar-frame i { font-size: 2rem; color: var(--purple-primary); }
+        .star-rating-row { color: #fbbf24; margin: 10px 0; font-size: 1.1rem; }
+
+        /* --- Digital Media Videos Grid --- */
+        .video-matrix {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 20px;
+        }
+        .video-thumbnail-card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: var(--clay-shadow);
+            border: 2px solid #fff;
+            position: relative;
+        }
+        .mock-player-frame {
+            background: #1e1b4b;
+            height: 160px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 2.5rem;
+            position: relative;
+        }
+        .video-meta-details { padding: 15px; }
+
+        /* --- Intelligent Calendar Picker & Agenda --- */
+        .calendar-dual-engine {
+            display: grid;
+            grid-template-columns: 1.2fr 2fr;
+            gap: 25px;
+        }
+        .calendar-matrix-mesh {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 8px;
+            text-align: center;
+            margin-top: 15px;
+        }
+        .calendar-mesh-header { font-weight: 700; color: var(--purple-dark); font-size: 0.85rem; padding-bottom: 5px; }
+        .calendar-day-node {
+            padding: 10px 0;
+            background: white;
+            border-radius: 10px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            cursor: pointer;
+            box-shadow: var(--clay-shadow-inset);
+            transition: all 0.2s ease;
+        }
+        .calendar-day-node.active-today { background: var(--purple-primary); color: white; box-shadow: var(--clay-btn-shadow); }
+
+        /* --- Motivational Quote Widget --- */
+        .quote-banner-box {
+            background: linear-gradient(135deg, var(--purple-light), var(--purple-primary));
+            color: white;
+            padding: 25px;
+            border-radius: 24px;
+            box-shadow: var(--clay-btn-shadow);
+            margin-bottom: 25px;
+            text-align: center;
+            position: relative;
+        }
+        .quote-banner-box i { font-size: 2rem; opacity: 0.3; display: block; margin-bottom: 10px; }
+
+        /* ==========================================================================
+           4. RESPONSIVE DESIGN CONTROLS
+           ========================================================================== */
+        @media (max-width: 1024px) {
+            .sidebar { width: 80px; padding: 20px 10px; }
+            .sidebar-profile { display: none; }
+            .menu-item span { display: none; }
+            .main-frame { margin-right: 80px; width: calc(100% - 80px); padding: 20px; }
+            .dashboard-row-split { grid-template-columns: 1fr; }
+            .calendar-dual-engine { grid-template-columns: 1fr; }
+        }
+
+        @media (max-width: 768px) {
+            .app-header { flex-direction: column; gap: 15px; text-align: center; }
+            .countdown-wrapper { width: 100%; justify-content: center; }
+        }
+    </style>
+</head>
+<body>
+
+    <div id="app-wrapper">
+        <section id="auth-screen" class="auth-container">
+            <div class="decorative-cloud cloud-1"></div>
+            <div class="decorative-cloud cloud-2"></div>
+            
+            <div class="auth-card">
+                <h2 style="font-weight: 900; color: var(--purple-dark); margin-bottom: 5px;">مرحباً بك مجدداً ✨</h2>
+                <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 25px;">لنبدأ رحلة التميز وحصد شهادة البكالوريا بمعدل أحلامك</p>
+                
+                <form id="registration-form" onsubmit="handleRegistration(event)">
+                    <div class="auth-avatar-section">
+                        <div class="auth-avatar-preview">
+                            <img id="chosen-avatar" src="https://api.dicebear.com/7.x/adventurer/svg?seed=Mia" alt="Avatar">
+                        </div>
+                    </div>
+                    <div class="avatar-picker-grid">
+                        <img class="avatar-option selected" src="https://api.dicebear.com/7.x/adventurer/svg?seed=Mia" onclick="selectAvatar(this.src, this)">
+                        <img class="avatar-option" src="https://api.dicebear.com/7.x/adventurer/svg?seed=Reem" onclick="selectAvatar(this.src, this)">
+                        <img class="avatar-option" src="https://api.dicebear.com/7.x/adventurer/svg?seed=Anis" onclick="selectAvatar(this.src, this)">
+                        <img class="avatar-option" src="https://api.dicebear.com/7.x/adventurer/svg?seed=Sami" onclick="selectAvatar(this.src, this)">
+                    </div>
+
+                    <div class="form-group">
+                        <label><i class="fa-solid fa-user"></i> الإسم الكامل</label>
+                        <input type="text" id="reg-name" class="form-input" placeholder="مثال: ريم" required>
+                    </div>
+
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+                        <div class="form-group">
+                            <label><i class="fa-solid fa-calendar-day"></i> العمر</label>
+                            <input type="number" id="reg-age" class="form-input" placeholder="18" required>
+                        </div>
+                        <div class="form-group">
+                            <label><i class="fa-solid fa-graduation-cap"></i> هدف المعدل</label>
+                            <input type="text" id="reg-goal-grade" class="form-input" placeholder="18.50" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label><i class="fa-solid fa-route"></i> الشعبة الدراسية</label>
+                        <select id="reg-branch" class="form-select" required>
+                            <option value="علوم تجريبية">شعبة العلوم التجريبية</option>
+                            <option value="رياضيات">شعبة الرياضيات</option>
+                            <option value="تقني رياضي">شعبة تقني رياضي (هندسة مدنية)</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label><i class="fa-solid fa-bullseye"></i> طموحك في البكالوريا</label>
+                        <input type="text" id="reg-ambition" class="form-input" placeholder="مثال: دكتورة جراحة الطوارئ والعلوم الطبية" required>
+                    </div>
+
+                    <button type="submit" class="clay-btn">دخول لوحة التحكم الذكية <i class="fa-solid fa-arrow-left"></i></button>
+                </form>
+            </div>
+        </section>
+
+        <section id="dashboard-screen" class="app-layout hidden">
+            <nav class="sidebar">
+                <div class="sidebar-profile">
+                    <div class="sidebar-avatar">
+                        <img id="user-profile-img" src="" alt="User">
+                    </div>
+                    <div>
+                        <h4 id="user-profile-name" style="font-weight: 700; font-size: 0.95rem;">-</h4>
+                        <p id="user-profile-branch" style="font-size: 0.75rem; opacity: 0.8;">-</p>
+                    </div>
+                </div>
+
+                <ul class="sidebar-menu">
+                    <li class="menu-item active" onclick="switchSubView('overview', this)"><i class="fa-solid fa-chart-pie"></i><span>الرئيسية Overview</span></li>
+                    <li class="menu-item" onclick="switchSubView('subjects', this)"><i class="fa-solid fa-book-open"></i><span>المواد الدراسية</span></li>
+                    <li class="menu-item" onclick="switchSubView('notes', this)"><i class="fa-solid fa-note-sticky"></i><span>الملاحظات</span></li>
+                    <li class="menu-item" onclick="switchSubView('teachers', this)"><i class="fa-solid fa-chalkboard-user"></i><span>الأساتذة المقترحين</span></li>
+                    <li class="menu-item" onclick="switchSubView('videos', this)"><i class="fa-solid fa-video"></i><span>مصادر الفيديو</span></li>
+                    <li class="menu-item" onclick="switchSubView('todo', this)"><i class="fa-solid fa-calendar-check"></i><span>المهام والتقويم</span></li>
+                    <li class="menu-item" onclick="switchSubView('goals', this)"><i class="fa-solid fa-flag-checkered"></i><span>إدارة الأهداف</span></li>
+                </ul>
+
+                <button class="clay-btn" onclick="clearSession()" style="margin-top: auto; background: rgba(255,255,255,0.2); font-size: 0.9rem; padding: 10px;"><i class="fa-solid fa-right-from-bracket"></i> <span>خروج</span></button>
+            </nav>
+
+            <main class="main-frame">
+                <header class="app-header">
+                    <div class="welcome-badge">
+                        <h1>صباح الخير، <span id="header-user-name">-</span>! ☀️</h1>
+                        <p id="header-motivation-text">أنت على بعد خطوات بسيطة من تحقيق حلم البكالوريا، فلنلتزم اليوم!</p>
+                    </div>
+                    
+                    <div class="countdown-wrapper">
+                        <div class="countdown-title">
+                            <span>العد التنازلي للباك</span>
+                            <small style="font-size: 0.7rem; color: var(--text-muted); cursor:pointer;" onclick="promptCustomBacDate()"><i class="fa-solid fa-pen-to-square"></i> تعديل التاريخ</small>
+                        </div>
+                        <div class="countdown-digits" id="countdown-clock-container">
+                            <div class="time-box"><span id="cd-days">00</span><label>أيام</label></div>
+                            <div class="time-box"><span id="cd-hours">00</span><label>ساعات</label></div>
+                            <div class="time-box"><span id="cd-mins">00</span><label>دقائق</label></div>
+                            <div class="time-box"><span id="cd-secs">00</span><label>ثواني</label></div>
+                        </div>
+                    </div>
+                </header>
+
+                <div id="view-overview" class="view-panel">
+                    <div class="quote-banner-box">
+                        <i class="fa-solid fa-quote-right"></i>
+                        <h3 id="daily-quote-text">"النجاح ليس مصادفة، بل هو عمل شاق، مثابرة، تعليم، تضحية، ومحبة لما تقوم به."</h3>
+                    </div>
+
+                    <div class="stats-grid">
+                        <div class="stat-clay-card">
+                            <div class="stat-icon-box" style="background: var(--purple-primary);"><i class="fa-solid fa-circle-check"></i></div>
+                            <div><h3 id="stat-completed-tasks">0</h3><p style="color: var(--text-muted); font-size:0.85rem;">المهام المنجزة</p></div>
+                        </div>
+                        <div class="stat-clay-card">
+                            <div class="stat-icon-box" style="background: var(--color-physics);"><i class="fa-solid fa-fire"></i></div>
+                            <div><h3>7</h3><p style="color: var(--text-muted); font-size:0.85rem;">أيام متتالية (Streak)</p></div>
+                        </div>
+                        <div class="stat-clay-card">
+                            <div class="stat-icon-box" style="background: var(--color-math);"><i class="fa-solid fa-hourglass-half"></i></div>
+                            <div><h3 id="stat-days-remaining">0</h3><p style="color: var(--text-muted); font-size:0.85rem;">يوم متبقي للامتحان</p></div>
+                        </div>
+                    </div>
+
+                    <div class="dashboard-row-split">
+                        <div class="content-block-clay">
+                            <div class="block-header"><h2>معدل تقدمك العام في كافة المواد</h2></div>
+                            <div class="progress-circle-container">
+                                <svg class="progress-svg">
+                                    <circle class="bg-ring" cx="70" cy="70" r="55"></circle>
+                                    <circle id="global-progress-ring" class="fill-ring" cx="70" cy="70" r="55" stroke-dasharray="345.57" stroke-dashoffset="345.57"></circle>
+                                </svg>
+                                <div id="global-progress-txt" class="progress-text-center">0%</div>
+                            </div>
+                            <p style="text-align: center; color: var(--text-muted); font-size: 0.9rem;">هذا العداد يمثل متوسط إنجاز الوحدات والمهام المحددة في جميع المقررات المتاحة لشعبتك.</p>
+                        </div>
+
+                        <div class="content-block-clay">
+                            <div class="block-header"><h2>الهدف الاستراتيجي</h2></div>
+                            <div style="text-align: center; padding: 10px 0;">
+                                <i class="fa-solid fa-award" style="font-size: 3rem; color: #fbbf24; margin-bottom: 10px;"></i>
+                                <h3 id="overview-target-grade" style="font-size: 1.8rem; color: var(--purple-dark);">18.50</h3>
+                                <p id="overview-ambition-lbl" style="font-weight: 600; font-size: 0.95rem; margin-top: 5px;"></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="view-subjects" class="view-panel hidden">
+                    <div id="subjects-landing-view">
+                        <div class="block-header"><h2>حقيبتك الدراسية والمناهج المقررة لشعبتك</h2></div>
+                        <div class="subjects-deck" id="subjects-grid-container">
+                            </div>
+                    </div>
+
+                    <div id="subjects-workspace-view" class="hidden">
+                        <div class="workspace-navbar">
+                            <button class="back-nav-btn" onclick="exitSubjectWorkspace()"><i class="fa-solid fa-arrow-right"></i></button>
+                            <div>
+                                <h2 id="workspace-subject-title">-</h2>
+                                <p style="color: var(--text-muted); font-size:0.85rem;">أضف الوحدات، الدروس، أو التمارين وتابع نسبة التحكم</p>
+                            </div>
+                        </div>
+
+                        <div class="content-block-clay">
+                            <div class="block-header">
+                                <h3>خطة العمل والوحدات التعليمية</h3>
+                                <button class="clay-btn" style="width:auto; padding: 8px 16px; margin:0; font-size:0.85rem;" onclick="openAddTaskModal()"><i class="fa-solid fa-plus"></i> إضافة وحدة/مهمة</button>
+                            </div>
+                            <div id="subject-tasks-container" class="task-list-wrapper">
+                                </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="view-notes" class="view-panel hidden">
+                    <div class="block-header"><h2>مساحة الأفكار والملاحظات اليومية الذكية</h2></div>
+                    <div class="notes-actions">
+                        <input type="text" id="note-input-field" class="form-input" style="box-shadow: var(--clay-shadow);" placeholder="اكتب فكرة سريعة أو قانوناً مهماً هنا...">
+                        <button class="clay-btn" style="width: auto; margin:0; white-space: nowrap;" onclick="addNewNote()"><i class="fa-solid fa-plus"></i> حفظ الملاحظة</button>
+                    </div>
+                    <div class="notes-grid-layout" id="notes-grid-container">
+                        </div>
+                </div>
+
+                <div id="view-teachers" class="view-panel hidden">
+                    <div class="block-header"><h2>دليلك الخاص لأفضل أساتذة اليوتيوب للمراجعة القوية</h2></div>
+                    
+                    <div class="content-block-clay">
+                        <h3 style="font-size: 1.05rem; margin-bottom: 12px; color: var(--purple-dark);"><i class="fa-solid fa-user-plus"></i> إضافة أستاذ جديد إلى قائمتك</h3>
+                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 12px;">
+                            <input type="text" id="teach-name" class="form-input" placeholder="اسم الأستاذ">
+                            <input type="text" id="teach-subj" class="form-input" placeholder="المادة (مثال: فلسفة)">
+                            <input type="text" id="teach-link" class="form-input" placeholder="رابط قناة اليوتيوب">
+                            <input type="number" id="teach-rating" class="form-input" placeholder="التقييم (من 1 إلى 5)" min="1" max="5">
+                            <input type="text" id="teach-advice" class="form-input" placeholder="نصيحة ذهبية من الأستاذ..." style="grid-column: span 2;">
+                        </div>
+                        <button class="clay-btn" style="margin-top: 15px; width: auto; padding: 10px 25px;" onclick="addNewTeacher()">إضافة الأستاذ للمفضلة ⭐</button>
+                    </div>
+
+                    <div class="teachers-grid" id="teachers-grid-container">
+                        </div>
+                </div>
+
+                <div id="view-videos" class="view-panel hidden">
+                    <div class="block-header"><h2>مكتبة الفيديوهات التعليمية والمحفزة المختارة</h2></div>
+                    
+                    <div class="content-block-clay">
+                        <h3 style="font-size: 1.05rem; margin-bottom: 12px; color: var(--purple-dark);"><i class="fa-solid fa-square-plus"></i> إضافة فيديو جديد للمكتبة</h3>
+                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px;">
+                            <input type="text" id="vid-title" class="form-input" placeholder="عنوان الفيديو التعليمي أو التحفيزي">
+                            <input type="text" id="vid-link" class="form-input" placeholder="رابط الفيديو (يوتيوب أو غيره)">
+                            <input type="text" id="vid-subj" class="form-input" placeholder="التصنيف / المادة (مثال: فلسفة)">
+                        </div>
+                        <button class="clay-btn" style="margin-top: 15px; width: auto; padding: 10px 25px;" onclick="addNewVideo()">حفظ الفيديو في المفضلة 🎬</button>
+                    </div>
+
+                    <div class="video-matrix" id="videos-matrix-container">
+                        </div>
+                </div>
+
+                <div id="view-todo" class="view-panel hidden">
+                    <div class="block-header"><h2>قائمة المهام اليومية والتقويم الزمني الذكي</h2></div>
+                    <div class="calendar-dual-engine">
+                        <div class="content-block-clay">
+                            <h3 id="calendar-month-year">ماي 2026</h3>
+                            <div class="calendar-matrix-mesh" id="calendar-days-grid">
+                                </div>
+                        </div>
+                        <div class="content-block-clay">
+                            <div class="block-header"><h3>أجندة المهام لليوم المحدد</h3></div>
+                            <div style="display: flex; gap:10px; margin-bottom:15px;">
+                                <input type="text" id="todo-task-input" class="form-input" placeholder="مثال: حل تمرين رقم 5 في الميكانيك...">
+                                <button class="clay-btn" style="width:auto; margin:0;" onclick="addTodoTask()"><i class="fa-solid fa-plus"></i></button>
+                            </div>
+                            <div id="todo-list-container" class="task-list-wrapper">
+                                </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="view-goals" class="view-panel hidden">
+                    <div class="block-header"><h2>بناء الأهداف المرحلية ومصفوفة المتابعة</h2></div>
+                    <div class="content-block-clay">
+                        <h3>الأهداف الأسبوعية والشهرية</h3>
+                        <div style="display:flex; gap:10px; margin: 15px 0;">
+                            <input type="text" id="goal-input" class="form-input" placeholder="مثال: إنهاء مراجعة الاسترة والتحولات النووية هذا الأسبوع...">
+                            <button class="clay-btn" style="width:auto; margin:0;" onclick="addNewGoal()"><i class="fa-solid fa-plus"></i> إضافة هدف</button>
+                        </div>
+                        <div id="goals-list-container" class="task-list-wrapper">
+                            </div>
+                    </div>
+                </div>
+            </main>
+        </section>
+    </div>
+
+    <script>
+        // --- Central State Object Architecture ---
+        let AppState = {
+            user: null,
+            bacDate: "2026-06-07T08:00:00",
+            subjects: {},
+            notes: [],
+            teachers: [],
+            videos: [],
+            todo: {},
+            goals: []
+        };
+
+        // --- Motivational Quotes Deck ---
+        const quotesPool = [
+            "النجاح ليس مصادفة، بل هو عمل شاق، مثابرة، تعليم، تضحية، ومحبة لما تقوم به.",
+            "التعليم هو أقوى سلاح يمكنك استخدامه لتغيير العالم. شهادة البكالوريا هي بوابتك الأولى!",
+            "لا تدع ما لا يمكنك فعله يتداخل مع ما يمكنك فعله. ركز على كراسك الآن.",
+            "إن العبقرية هي 1% إلهام و99% جهد وعرق. ثق بقدراتك يا بطل.",
+            "سر المضي قدمًا هو البدء الفعلي. لا تنتظر الغد، ابدأ المراجعة اللحظة."
+        ];
+
+        // --- Default Educational Curriculums Structures per Branch (تمت إضافة الفلسفة للجميع) ---
+        const branchBlueprints = {
+            "علوم تجريبية": [
+                { id: "science", name: "علوم الطبيعة والحياة", priority: true, color: "var(--color-science)", icon: "fa-dna" },
+                { id: "physics", name: "العلوم الفيزيائية", priority: true, color: "var(--color-physics)", icon: "fa-atom" },
+                { id: "math", name: "الرياضيات", priority: true, color: "var(--color-math)", icon: "fa-calculator" },
+                { id: "philosophy", name: "الفلسفة", priority: false, color: "var(--color-philosophy)", icon: "fa-brain" },
+                { id: "arabic", name: "اللغة العربية وآدابها", priority: false, color: "var(--color-arabic)", icon: "fa-book" },
+                { id: "islamic", name: "العلوم الإسلامية", priority: false, color: "var(--color-islamic)", icon: "fa-mosque" },
+                { id: "history", name: "التاريخ والجغرافيا", priority: false, color: "var(--color-history)", icon: "fa-earth-africa" },
+                { id: "french", name: "اللغة الفرنسية", priority: false, color: "var(--color-french)", icon: "fa-language" },
+                { id: "english", name: "اللغة الإنجليزية", priority: false, color: "var(--color-english)", icon: "fa-globe" }
+            ],
+            "رياضيات": [
+                { id: "math", name: "الرياضيات", priority: true, color: "var(--color-math)", icon: "fa-calculator" },
+                { id: "physics", name: "العلوم الفيزيائية", priority: true, color: "var(--color-physics)", icon: "fa-atom" },
+                { id: "science", name: "علوم الطبيعة والحياة", priority: false, color: "var(--color-science)", icon: "fa-dna" },
+                { id: "philosophy", name: "الفلسفة", priority: false, color: "var(--color-philosophy)", icon: "fa-brain" },
+                { id: "arabic", name: "اللغة العربية وآدابها", priority: false, color: "var(--color-arabic)", icon: "fa-book" },
+                { id: "islamic", name: "العلوم الإسلامية", priority: false, color: "var(--color-islamic)", icon: "fa-mosque" },
+                { id: "history", name: "التاريخ والجغرافيا", priority: false, color: "var(--color-history)", icon: "fa-earth-africa" },
+                { id: "french", name: "اللغة الفرنسية", priority: false, color: "var(--color-french)", icon: "fa-language" },
+                { id: "english", name: "اللغة الإنجليزية", priority: false, color: "var(--color-english)", icon: "fa-globe" }
+            ],
+            "تقني رياضي": [
+                { id: "engineering", name: "تكنولوجيا (هندسة مدنية)", priority: true, color: "var(--color-engineering)", icon: "fa-compass-drafting" },
+                { id: "math", name: "الرياضيات", priority: true, color: "var(--color-math)", icon: "fa-calculator" },
+                { id: "physics", name: "العلوم الفيزيائية", priority: true, color: "var(--color-physics)", icon: "fa-atom" },
+                { id: "philosophy", name: "الفلسفة", priority: false, color: "var(--color-philosophy)", icon: "fa-brain" },
+                { id: "arabic", name: "اللغة العربية وآدابها", priority: false, color: "var(--color-arabic)", icon: "fa-book" },
+                { id: "islamic", name: "العلوم الإسلامية", priority: false, color: "var(--color-islamic)", icon: "fa-mosque" },
+                { id: "history", name: "التاريخ والجغرافيا", priority: false, color: "var(--color-history)", icon: "fa-earth-africa" },
+                { id: "french", name: "اللغة الفرنسية", priority: false, color: "var(--color-french)", icon: "fa-language" },
+                { id: "english", name: "اللغة الإنجليزية", priority: false, color: "var(--color-english)", icon: "fa-globe" }
+            ]
+        };
+
+        let selectedAvatarUrl = "https://api.dicebear.com/7.x/adventurer/svg?seed=Mia";
+        let activeSubjectId = null;
+        let selectedCalendarDateStr = "2026-05-18";
+
+        // --- Init Lifecycle Callback ---
+        window.addEventListener('DOMContentLoaded', () => {
+            loadStateFromLocalStorage();
+            initCountdownClock();
+            rotateDailyQuote();
+            
+            if (AppState.user) {
+                renderAppLayout();
+            } else {
+                document.getElementById('auth-screen').classList.remove('hidden');
+            }
+        });
+
+        // --- LocalStorage Sync Systems ---
+        function saveStateToLocalStorage() {
+            localStorage.setItem('dzbac_platform_state', JSON.stringify(AppState));
+        }
+
+        function loadStateFromLocalStorage() {
+            const data = localStorage.getItem('dzbac_platform_state');
+            if (data) {
+                AppState = JSON.parse(data);
+                
+                // التأكد من إضافة الفلسفة للمستخدمين القدامى الذين سجلوا بدونها
+                if (AppState.user && AppState.subjects && !AppState.subjects.philosophy) {
+                    const currentBranch = AppState.user.branch;
+                    const philBlueprint = branchBlueprints[currentBranch].find(s => s.id === "philosophy");
+                    if (philBlueprint) {
+                        AppState.subjects.philosophy = {
+                            metadata: philBlueprint,
+                            tasks: [
+                                { name: "فهم منهجية كتابة المقالات الفلسفية", completed: false },
+                                { name: "مراجعة مقالة المشكلة والإشكالية", completed: false }
+                            ]
+                        };
+                    }
+                }
+            } else {
+                // بيانات افتراضية عند التشغيل لأول مرة
+                AppState.teachers = [
+                    { name: "الأستاذ شيريفي", subject: "الفيزياء", link: "https://youtube.com", rating: 5, advice: "التركيز على فهم المعادلات وتطبيق قوانين نيوتن بدقة." },
+                    { name: "الأستاذ نور الدين", subject: "الرياضيات", link: "https://youtube.com", rating: 5, advice: "حل أكبر عدد من البكالوريات السابقة لتثبيت الأفكار." }
+                ];
+                AppState.videos = [
+                    { title: "ملخص الميكانيك الشامل في ساعتين", subject: "الفيزياء", link: "#", watched: false },
+                    { title: "كيف تحصل على 20 في العلوم الطبيعية", subject: "العلوم", link: "#", watched: true }
+                ];
+            }
+        }
+
+        function clearSession() {
+            if(confirm("هل أنت متأكد من رغبتك في تسجيل الخروج؟ سيتم الاحتفاظ ببياناتك للمرة القادمة.")) {
+                location.reload();
+            }
+        }
+
+        // --- Registration Logic Pipeline ---
+        function selectAvatar(url, element) {
+            selectedAvatarUrl = url;
+            document.getElementById('chosen-avatar').src = url;
+            document.querySelectorAll('.avatar-option').forEach(el => el.classList.remove('selected'));
+            element.classList.add('selected');
+        }
+
+        function handleRegistration(e) {
+            e.preventDefault();
+            const name = document.getElementById('reg-name').value;
+            const age = document.getElementById('reg-age').value;
+            const grade = document.getElementById('reg-goal-grade').value;
+            const branch = document.getElementById('reg-branch').value;
+            const ambition = document.getElementById('reg-ambition').value;
+
+            AppState.user = { name, age, targetGrade: grade, branch, ambition, avatar: selectedAvatarUrl };
+            
+            AppState.subjects = {};
+            branchBlueprints[branch].forEach(subj => {
+                AppState.subjects[subj.id] = {
+                    metadata: subj,
+                    tasks: [
+                        { name: "مراجعة الدرس الأول وفهمه جيداً", completed: false },
+                        { name: "حل التمارين والباكالوريات السابقة المتعلقة بالوحدة الأولى", completed: false }
+                    ]
+                };
+            });
+
+            saveStateToLocalStorage();
+            renderAppLayout();
+        }
+
+        // --- Shell UI Presentation Component Rendering ---
+        function renderAppLayout() {
+            document.getElementById('auth-screen').classList.add('hidden');
+            document.getElementById('dashboard-screen').classList.remove('hidden');
+
+            document.getElementById('user-profile-img').src = AppState.user.avatar;
+            document.getElementById('user-profile-name').innerText = AppState.user.name;
+            document.getElementById('user-profile-branch').innerText = "شعبة " + AppState.user.branch;
+            document.getElementById('header-user-name').innerText = AppState.user.name;
+            document.getElementById('overview-target-grade').innerText = AppState.user.targetGrade;
+            document.getElementById('overview-ambition-lbl').innerText = AppState.user.ambition;
+
+            calculateGlobalMetrics();
+            renderSubjectsGrid();
+            renderNotesGrid();
+            renderTeachersGrid();
+            renderVideosMatrix();
+            buildCalendarGrid();
+            renderDailyTodoGrid();
+            renderGoalsFramework();
+        }
+
+        // --- Single Page View Router Engine ---
+        function switchSubView(viewId, menuItemElement) {
+            document.querySelectorAll('.view-panel').forEach(view => view.classList.add('hidden'));
+            document.getElementById(`view-${viewId}`).classList.remove('hidden');
+
+            document.querySelectorAll('.menu-item').forEach(item => item.classList.remove('active'));
+            if(menuItemElement) menuItemElement.classList.add('active');
+
+            if(viewId === 'subjects') {
+                exitSubjectWorkspace(); 
+            }
+        }
+
+        // --- Computational Analytical Functions ---
+        function calculateGlobalMetrics() {
+            let totalTasks = 0;
+            let completedTasks = 0;
+
+            Object.keys(AppState.subjects).forEach(id => {
+                const subj = AppState.subjects[id];
+                subj.tasks.forEach(t => {
+                    totalTasks++;
+                    if(t.completed) completedTasks++;
+                });
+            });
+
+            document.getElementById('stat-completed-tasks').innerText = completedTasks;
+
+            const percentage = totalTasks > 0 ? Math.round((completedTasks / totalTasks) * 100) : 0;
+            document.getElementById('global-progress-txt').innerText = `${percentage}%`;
+            
+            const circle = document.getElementById('global-progress-ring');
+            const circumference = 2 * Math.PI * 55;
+            const offset = circumference - (percentage / 100) * circumference;
+            circle.style.strokeDashoffset = offset;
+        }
+
+        // --- Global Clock Countdown Automation ---
+        function initCountdownClock() {
+            function updateClock() {
+                const target = new Date(AppState.bacDate).getTime();
+                const now = new Date().getTime();
+                const gap = target - now;
+
+                if (gap <= 0) {
+                    document.getElementById('countdown-clock-container').innerHTML = "<h3 style='color:var(--color-engineering)'>حان وقت الامتحان! بالتوفيق للجميع ✨</h3>";
+                    document.getElementById('stat-days-remaining').innerText = "0";
+                    return;
+                }
+
+                const second = 1000;
+                const minute = second * 60;
+                const hour = minute * 60;
+                const day = hour * 24;
+
+                const d = Math.floor(gap / day);
+                const h = Math.floor((gap % day) / hour);
+                const m = Math.floor((gap % hour) / minute);
+                const s = Math.floor((gap % minute) / second);
+
+                document.getElementById('cd-days').innerText = String(d).padStart(2, '0');
+                document.getElementById('cd-hours').innerText = String(h).padStart(2, '0');
+                document.getElementById('cd-mins').innerText = String(m).padStart(2, '0');
+                document.getElementById('cd-secs').innerText = String(s).padStart(2, '0');
+
+                document.getElementById('stat-days-remaining').innerText = d;
+            }
+            setInterval(updateClock, 1000);
+            updateClock();
+        }
+
+        function promptCustomBacDate() {
+            const newDateStr = prompt("أدخل تاريخ البكالوريا الجديد بصيغة (YYYY-MM-DD):", AppState.bacDate.substring(0,10));
+            if(newDateStr) {
+                AppState.bacDate = `${newDateStr}T08:00:00`;
+                saveStateToLocalStorage();
+                initCountdownClock();
+            }
+        }
+
+        function rotateDailyQuote() {
+            const randIndex = Math.floor(Math.random() * quotesPool.length);
+            document.getElementById('daily-quote-text').innerText = `"${quotesPool[randIndex]}"`;
+        }
+
+        // ==========================================================================
+        // VENDOR CONTENT DOM INJECTION METHODS & DYNAMIC INPUT CONTROLLERS
+        // ==========================================================================
+        
+        // --- Subject Matrix Rendering ---
+        function renderSubjectsGrid() {
+            const grid = document.getElementById('subjects-grid-container');
+            grid.innerHTML = '';
+
+            Object.keys(AppState.subjects).forEach(id => {
+                const subj = AppState.subjects[id];
+                const total = subj.tasks.length;
+                const completed = subj.tasks.filter(t => t.completed).length;
+                const percent = total > 0 ? Math.round((completed / total) * 100) : 0;
+
+                const card = document.createElement('div');
+                card.className = `subject-clay-card ${subj.metadata.priority ? 'main-priority' : ''}`;
+                card.onclick = () => launchSubjectWorkspace(id);
+
+                card.innerHTML = `
+                    <div class="subject-card-header">
+                        <div class="subj-badge" style="background:${subj.metadata.color}">
+                            <i class="fa-solid ${subj.metadata.icon}"></i>
+                        </div>
+                        ${subj.metadata.priority ? '<span style="font-size:0.7rem; background:rgba(157,133,225,0.15); color:var(--purple-dark); padding:2px 8px; border-radius:10px; font-weight:700;">مادة أساسية</span>' : ''}
+                    </div>
+                    <h3 style="font-size:1.1rem; margin-bottom:5px;">${subj.metadata.name}</h3>
+                    <p style="color:var(--text-muted); font-size:0.8rem;">تم إنجاز ${completed} من أصل ${total}</p>
+                    <div class="linear-progress-bar">
+                        <div class="linear-progress-fill" style="width:${percent}%; background:${subj.metadata.color}"></div>
+                    </div>
+                    <span style="font-size:0.8rem; font-weight:700; color:var(--text-main); display:block; text-align:left; margin-top:5px;">${percent}%</span>
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        function launchSubjectWorkspace(id) {
+            activeSubjectId = id;
+            document.getElementById('subjects-landing-view').classList.add('hidden');
+            const workspace = document.getElementById('subjects-workspace-view');
+            workspace.classList.remove('hidden');
+
+            const subj = AppState.subjects[id];
+            document.getElementById('workspace-subject-title').innerText = subj.metadata.name;
+            renderSubjectTasksEntries();
+        }
+
+        function exitSubjectWorkspace() {
+            activeSubjectId = null;
+            document.getElementById('subjects-workspace-view').classList.add('hidden');
+            document.getElementById('subjects-landing-view').classList.remove('hidden');
+            renderSubjectsGrid();
+            calculateGlobalMetrics();
+        }
+
+        function renderSubjectTasksEntries() {
+            const container = document.getElementById('subject-tasks-container');
+            container.innerHTML = '';
+            const subj = AppState.subjects[activeSubjectId];
+
+            if(subj.tasks.length === 0) {
+                container.innerHTML = `<p style="text-align:center; color:var(--text-muted); padding:20px;">لا توجد وحدات أو مهام مضافة حالياً. أضف مهامك لتبدأ المراجعة!</p>`;
+                return;
+            }
+
+            subj.tasks.forEach((task, index) => {
+                const row = document.createElement('div');
+                row.className = `task-item-row ${task.completed ? 'completed' : ''}`;
+                row.style.borderRightColor = subj.metadata.color;
+                
+                row.innerHTML = `
+                    <div style="display:flex; align-items:center; gap:15px;">
+                        <div class="interactive-checkbox ${task.completed ? 'checked' : ''}" style="${task.completed ? 'background:' + subj.metadata.color : ''}" onclick="toggleTaskCompletion(${index})">
+                            ${task.completed ? '<i class="fa-solid fa-check"></i>' : ''}
+                        </div>
+                        <span class="task-title-text" style="font-weight:600;">${task.name}</span>
+                    </div>
+                    <button style="background:none; border:none; color:var(--color-engineering); cursor:pointer;" onclick="deleteTaskEntry(${index})"><i class="fa-solid fa-trash"></i></button>
+                `;
+                container.appendChild(row);
+            });
+        }
+
+        function openAddTaskModal() {
+            const taskName = prompt("أدخل اسم الوحدة الجديدة أو المهمة المقررة:");
+            if (taskName) {
+                AppState.subjects[activeSubjectId].tasks.push({ name: taskName, completed: false });
+                saveStateToLocalStorage();
+                renderSubjectTasksEntries();
+            }
+        }
+
+        function toggleTaskCompletion(index) {
+            const task = AppState.subjects[activeSubjectId].tasks[index];
+            task.completed = !task.completed;
+            saveStateToLocalStorage();
+            renderSubjectTasksEntries();
+        }
+
+        function deleteTaskEntry(index) {
+            AppState.subjects[activeSubjectId].tasks.splice(index, 1);
+            saveStateToLocalStorage();
+            renderSubjectTasksEntries();
+        }
+
+        // --- Color-Coded Notes Management System ---
+        function renderNotesGrid() {
+            const container = document.getElementById('notes-grid-container');
+            container.innerHTML = '';
+            
+            if(AppState.notes.length === 0) {
+                container.innerHTML = `<p style="color:var(--text-muted); grid-column: 1/-1; text-align:center; padding:20px;">المساحة فارغة، اكتب قوانينك وملاحظاتك الهامة هنا للعودة إليها سريعاً.</p>`;
+                return;
+            }
+
+            AppState.notes.forEach((note, index) => {
+                const pad = document.createElement('div');
+                pad.className = 'note-sticky-pad';
+                pad.style.background = note.color || '#fffdf9';
+                pad.innerHTML = `
+                    <p>${note.text}</p>
+                    <div class="note-footer">
+                        <span>${note.date}</span>
+                        <button style="background:none; border:none; color:var(--text-main); cursor:pointer; font-size:1rem;" onclick="deleteNoteEntry(${index})"><i class="fa-solid fa-trash-can"></i></button>
+                    </div>
+                `;
+                container.appendChild(pad);
+            });
+        }
+
+        function addNewNote() {
+            const txt = document.getElementById('note-input-field').value.trim();
+            if(!txt) return;
+
+            const pastelColors = ['#fef08a', '#bbf7d0', '#bfdbfe', '#fbcfe8', '#fed7aa'];
+            const randomColor = pastelColors[Math.floor(Math.random() * pastelColors.length)];
+            const dateStr = new Date().toLocaleDateString('ar-DZ');
+
+            AppState.notes.push({ text: txt, date: dateStr, color: randomColor });
+            document.getElementById('note-input-field').value = '';
+            saveStateToLocalStorage();
+            renderNotesGrid();
+        }
+
+        function deleteNoteEntry(index) {
+            AppState.notes.splice(index, 1);
+            saveStateToLocalStorage();
+            renderNotesGrid();
+        }
+
+        // --- Dynamic Teachers Management Engine ---
+        function renderTeachersGrid() {
+            const container = document.getElementById('teachers-grid-container');
+            container.innerHTML = '';
+
+            if(AppState.teachers.length === 0) {
+                container.innerHTML = `<p style="color:var(--text-muted); grid-column: 1/-1; text-align:center; padding:20px;">لم تضف أي أستاذ بعد. املأ الاستمارة أعلاه لحفظ أساتذتك المفضلين!</p>`;
+                return;
+            }
+
+            AppState.teachers.forEach((teacher, index) => {
+                const card = document.createElement('div');
+                card.className = 'teacher-profile-card';
+                card.innerHTML = `
+                    <button style="position: absolute; left: 15px; top: 15px; background: none; border: none; color: var(--color-engineering); cursor: pointer;" onclick="deleteTeacherEntry(${index})"><i class="fa-solid fa-user-xmark"></i></button>
+                    <div class="teacher-avatar-frame"><i class="fa-solid fa-user-tie"></i></div>
+                    <h3 style="font-size:1.1rem; color:var(--text-main);">${teacher.name}</h3>
+                    <span style="font-size:0.8rem; background:var(--purple-light); color:white; padding:2px 10px; border-radius:10px; font-weight:700;">${teacher.subject}</span>
+                    <div class="star-rating-row">
+                        ${'<i class="fa-solid fa-star"></i>'.repeat(teacher.rating)}
+                    </div>
+                    <p style="font-size:0.85rem; color:var(--text-muted); margin: 10px 0; font-style:italic;">"${teacher.advice}"</p>
+                    <a href="${teacher.link}" target="_blank" class="clay-btn" style="padding:6px 15px; font-size:0.8rem; text-decoration:none; display:inline-block; width:auto; margin:5px 0 0;"><i class="fa-brands fa-youtube"></i> زيارة القناة التعليمية</a>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        function addNewTeacher() {
+            const name = document.getElementById('teach-name').value.trim();
+            const subject = document.getElementById('teach-subj').value.trim();
+            let link = document.getElementById('teach-link').value.trim();
+            let rating = parseInt(document.getElementById('teach-rating').value) || 5;
+            const advice = document.getElementById('teach-advice').value.trim();
+
+            if(!name || !subject) {
+                alert("يرجى إدخال اسم الأستاذ والمادة التعليمية كحد أدنى.");
+                return;
+            }
+
+            if(rating < 1) rating = 1;
+            if(rating > 5) rating = 5;
+            if(!link) link = "#";
+
+            AppState.teachers.push({
+                name: name,
+                subject: subject,
+                link: link,
+                rating: rating,
+                advice: advice || "لا توجد نصائح مسجلة حتى الآن."
+            });
+
+            // تفريغ الخانات بعد الحفظ
+            document.getElementById('teach-name').value = '';
+            document.getElementById('teach-subj').value = '';
+            document.getElementById('teach-link').value = '';
+            document.getElementById('teach-rating').value = '';
+            document.getElementById('teach-advice').value = '';
+
+            saveStateToLocalStorage();
+            renderTeachersGrid();
+        }
+
+        function deleteTeacherEntry(index) {
+            AppState.teachers.splice(index, 1);
+            saveStateToLocalStorage();
+            renderTeachersGrid();
+        }
+
+        // --- Dynamic Media Videos Engine ---
+        function renderVideosMatrix() {
+            const container = document.getElementById('videos-matrix-container');
+            container.innerHTML = '';
+
+            if(AppState.videos.length === 0) {
+                container.innerHTML = `<p style="color:var(--text-muted); grid-column: 1/-1; text-align:center; padding:20px;">مكتبة الفيديوهات فارغة حالياً. أضف روابط دروسك المهمة من هنا.</p>`;
+                return;
+            }
+
+            AppState.videos.forEach((vid, index) => {
+                const card = document.createElement('div');
+                card.className = 'video-thumbnail-card';
+                card.innerHTML = `
+                    <button style="position: absolute; left: 10px; top: 10px; background: rgba(255,255,255,0.8); border: none; color: var(--color-engineering); cursor: pointer; border-radius:50%; width:25px; height:25px; display:flex; align-items:center; justify-content:center; z-index:10;" onclick="deleteVideoEntry(${index})"><i class="fa-solid fa-xmark"></i></button>
+                    <a href="${vid.link}" target="_blank" style="text-decoration:none; color:inherit;">
+                        <div class="mock-player-frame">
+                            <i class="fa-brands fa-square-youtube" style="color:#ef4444;"></i>
+                            <span style="position:absolute; bottom:10px; right:10px; font-size:0.7rem; background:rgba(0,0,0,0.6); padding:2px 6px; border-radius:4px; color:white;">${vid.subject}</span>
+                        </div>
+                    </a>
+                    <div class="video-meta-details">
+                        <h4 style="font-size:0.95rem; margin-bottom:10px; font-weight:700;">${vid.title}</h4>
+                        <div style="display:flex; justify-content:between; align-items:center; justify-content: space-between;">
+                            <button class="clay-btn" style="width:auto; margin:0; padding:4px 10px; font-size:0.75rem; background:${vid.watched ? '#cbd5e1' : 'var(--purple-primary)'}" onclick="toggleVideoWatchedState(${index})">
+                                ${vid.watched ? '<i class="fa-solid fa-eye"></i> تمت المشاهدة' : 'تعليم كمشاهد'}
+                            </button>
+                        </div>
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        function addNewVideo() {
+            const title = document.getElementById('vid-title').value.trim();
+            let link = document.getElementById('vid-link').value.trim();
+            const subject = document.getElementById('vid-subj').value.trim();
+
+            if(!title) {
+                alert("يرجى وضع عنوان توضيحي للفيديو المضاف.");
+                return;
+            }
+
+            if(!link) link = "#";
+
+            AppState.videos.push({
+                title: title,
+                link: link,
+                subject: subject || "تحفيز/عام",
+                watched: false
+            });
+
+            // تفريغ الحقول
+            document.getElementById('vid-title').value = '';
+            document.getElementById('vid-link').value = '';
+            document.getElementById('vid-subj').value = '';
+
+            saveStateToLocalStorage();
+            renderVideosMatrix();
+        }
+
+        function toggleVideoWatchedState(index) {
+            AppState.videos[index].watched = !AppState.videos[index].watched;
+            saveStateToLocalStorage();
+            renderVideosMatrix();
+        }
+
+        function deleteVideoEntry(index) {
+            AppState.videos.splice(index, 1);
+            saveStateToLocalStorage();
+            renderVideosMatrix();
+        }
+
+        // --- ToDo Lists Integrated Calendar Meshing System ---
+        function buildCalendarGrid() {
+            const container = document.getElementById('calendar-days-grid');
+            container.innerHTML = '';
+            
+            const labels = ['ح', 'ن', 'ث', 'ر', 'خ', 'ج', 'س'];
+            labels.forEach(lbl => {
+                const node = document.createElement('div');
+                node.className = 'calendar-mesh-header';
+                node.innerText = lbl;
+                container.appendChild(node);
+            });
+
+            for(let blank=0; blank<5; blank++) {
+                const emptyNode = document.createElement('div');
+                container.appendChild(emptyNode);
+            }
+
+            for(let day=1; day<=31; day++) {
+                const node = document.createElement('div');
+                const dateString = `2026-05-${String(day).padStart(2, '0')}`;
+                node.className = `calendar-day-node ${selectedCalendarDateStr === dateString ? 'active-today' : ''}`;
+                node.innerText = day;
+                node.onclick = () => {
+                    selectedCalendarDateStr = dateString;
+                    buildCalendarGrid();
+                    renderDailyTodoGrid();
+                };
+                container.appendChild(node);
+            }
+        }
+
+        function renderDailyTodoGrid() {
+            const container = document.getElementById('todo-list-container');
+            container.innerHTML = '';
+            
+            const currentDayTasks = AppState.todo[selectedCalendarDateStr] || [];
+
+            if(currentDayTasks.length === 0) {
+                container.innerHTML = `<p style="text-align:center; color:var(--text-muted); font-size:0.85rem; padding:15px;">لا توجد مهام مضافة لهذا اليوم المحدّد.</p>`;
+                return;
+            }
+
+            currentDayTasks.forEach((task, index) => {
+                const row = document.createElement('div');
+                row.className = `task-item-row ${task.completed ? 'completed' : ''}`;
+                row.innerHTML = `
+                    <div style="display:flex; align-items:center; gap:15px;">
+                        <div class="interactive-checkbox ${task.completed ? 'checked' : ''}" onclick="toggleTodoTaskCompletion(${index})">
+                            ${task.completed ? '<i class="fa-solid fa-check"></i>' : ''}
+                        </div>
+                        <span class="task-title-text">${task.title}</span>
+                    </div>
+                    <button style="background:none; border:none; color:var(--color-engineering); cursor:pointer;" onclick="deleteTodoTaskEntry(${index})"><i class="fa-solid fa-trash"></i></button>
+                `;
+                container.appendChild(row);
+            });
+        }
+
+        function addTodoTask() {
+            const input = document.getElementById('todo-task-input');
+            const title = input.value.trim();
+            if(!title) return;
+
+            if(!AppState.todo[selectedCalendarDateStr]) {
+                AppState.todo[selectedCalendarDateStr] = [];
+            }
+
+            AppState.todo[selectedCalendarDateStr].push({ title: title, completed: false });
+            input.value = '';
+            saveStateToLocalStorage();
+            renderDailyTodoGrid();
+            calculateGlobalMetrics();
+        }
+
+        function toggleTodoTaskCompletion(index) {
+            AppState.todo[selectedCalendarDateStr][index].completed = !AppState.todo[selectedCalendarDateStr][index].completed;
+            saveStateToLocalStorage();
+            renderDailyTodoGrid();
+            calculateGlobalMetrics();
+        }
+
+        function deleteTodoTaskEntry(index) {
+            AppState.todo[selectedCalendarDateStr].splice(index, 1);
+            saveStateToLocalStorage();
+            renderDailyTodoGrid();
+            calculateGlobalMetrics();
+        }
+
+        // --- Goals Core Management System ---
+        function renderGoalsFramework() {
+            const container = document.getElementById('goals-list-container');
+            container.innerHTML = '';
+
+            if(AppState.goals.length === 0) {
+                container.innerHTML = `<p style="text-align:center; color:var(--text-muted); font-size:0.85rem; padding:15px;">اكتب أهدافك المرحلية الآن...</p>`;
+                return;
+            }
+
+            AppState.goals.forEach((goal, index) => {
+                const row = document.createElement('div');
+                row.className = `task-item-row ${goal.completed ? 'completed' : ''}`;
+                row.innerHTML = `
+                    <div style="display:flex; align-items:center; gap:15px;">
+                        <div class="interactive-checkbox ${goal.completed ? 'checked' : ''}" onclick="toggleGoalCompletion(${index})">
+                            ${goal.completed ? '<i class="fa-solid fa-check"></i>' : ''}
+                        </div>
+                        <span class="task-title-text" style="font-weight:700;">${goal.text}</span>
+                    </div>
+                    <button style="background:none; border:none; color:var(--color-engineering); cursor:pointer;" onclick="deleteGoalEntry(${index})"><i class="fa-solid fa-trash"></i></button>
+                `;
+                container.appendChild(row);
+            });
+        }
+
+        function addNewGoal() {
+            const input = document.getElementById('goal-input');
+            const val = input.value.trim();
+            if(!val) return;
+
+            AppState.goals.push({ text: val, completed: false });
+            input.value = '';
+            saveStateToLocalStorage();
+            renderGoalsFramework();
+        }
+
+        function toggleGoalCompletion(index) {
+            AppState.goals[index].completed = !AppState.goals[index].completed;
+            saveStateToLocalStorage();
+            renderGoalsFramework();
+        }
+
+        function deleteGoalEntry(index) {
+            AppState.goals.splice(index, 1);
+            saveStateToLocalStorage();
+            renderGoalsFramework();
+        }
+    </script>
+</body>
+</html>
